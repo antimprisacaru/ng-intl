@@ -1,12 +1,14 @@
-import { Component, effect, inject, Inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { translationServiceFactory } from './utils/translation-service.provider';
+import { translationServiceFactory } from '@antim/transgular';
+import { LanguageService } from '@antim/transgular';
+import { InterpolationPipe } from '@antim/transgular';
 
-const { TranslationService, provideTranslationService } = translationServiceFactory({ en: () => import('./i18n/en'), es: () => import('./i18n/es') }, 'en');
+const { TranslationService, provideTranslationService } = translationServiceFactory({ en: () => import('./i18n/en.json'), es: () => import('./i18n/es') });
 
 @Component({
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, InterpolationPipe],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -14,10 +16,13 @@ const { TranslationService, provideTranslationService } = translationServiceFact
 })
 export class AppComponent {
   protected translations = inject(TranslationService).translations;
+  private localeService = inject(LanguageService);
 
-  constructor() {
-    effect(() => {
-      console.log(this.translations())
-    });
+  switchToSpanish(): void {
+    this.localeService.setLanguage('es');
+  }
+
+  switchToEnglish(): void {
+    this.localeService.setLanguage('en');
   }
 }

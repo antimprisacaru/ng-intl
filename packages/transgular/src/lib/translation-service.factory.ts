@@ -1,8 +1,9 @@
-import { computed, Provider, signal, Signal } from '@angular/core';
+import { computed, inject, Provider, signal, Signal } from '@angular/core';
 import { AvailableLanguages } from './languages';
 import { createInjectable } from 'ngxtension/create-injectable';
-import { BehaviorSubject, catchError, filter, from, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, filter, from, map, of, switchMap, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { LanguageService } from './language.service';
 
 // Define a recursive type for nested translation objects
 type NestedTranslation<T = string> = {
@@ -24,18 +25,14 @@ type TranslationSignal<T> = Signal<T> & {
   (): T;
 };
 
-export function translationServiceFactory<T extends TranslationImportMap>(
-  translationRecords: T,
-  initialLanguage: keyof T
-) {
+export function translationServiceFactory<T extends TranslationImportMap>(translationRecords: T) {
   const TranslationService = createInjectable(
-    () => {
+    (languageService = inject(LanguageService)) => {
       type Translation = InferredTranslations<T>[keyof T];
 
-      const setLanguage$ = new BehaviorSubject<keyof T>(initialLanguage);
       const translations: TranslationSignal<Translation | undefined> = toSignal(
-        setLanguage$.pipe(
-          switchMap((lang) =>
+        languageService.lang$.pipe(
+          switchMap((lang: AvailableLanguages) =>
             from(
               translationRecords[lang]()
                 .then((m) => m.default as Translation)
@@ -50,7 +47,6 @@ export function translationServiceFactory<T extends TranslationImportMap>(
 
       return {
         translations,
-        setLanguage: (lang: keyof T) => setLanguage$.next(lang),
       };
     },
     { providedIn: 'scoped' }

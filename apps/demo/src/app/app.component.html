@@ -1,2 +1,8 @@
-<span>Greeting:  {{ translations()?.farewell }}</span>
+<div>
+<button (click)="switchToSpanish()">switch to spanish</button>
+<button (click)="switchToEnglish()">switch to english</button>
 
+<p>Greeting:  {{ translations()?.farewell }}</p>
+<p>Nesting: {{ translations()?.test?.stuff }}</p>
+<p>Interpolation: {{ translations()?.interpolation | interpolate: { belly: 'big' } }} </p>
+</div>

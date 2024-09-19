@@ -1,0 +1,8 @@
+{
+  "greeting": "Hello",
+  "farewell": "Goodbye",
+  "test": {
+    "stuff": "idk"
+  },
+  "interpolation": "I like brown pandas with {{ belly }} belly"
+}
