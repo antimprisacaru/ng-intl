@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject, Inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { translationServiceFactory } from './utils/translation-service.provider';
+
+const { TranslationService, provideTranslationService } = translationServiceFactory({ en: () => import('./i18n/en'), es: () => import('./i18n/es') }, 'en');
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [provideTranslationService()],
 })
 export class AppComponent {
-  title = 'demo';
+  protected translations = inject(TranslationService).translations;
+
+  constructor() {
+    effect(() => {
+      console.log(this.translations())
+    });
+  }
 }
