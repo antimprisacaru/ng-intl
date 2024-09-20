@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'ng-i18n',
+  displayName: 'ng-intl',
   preset: '../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../coverage/ng-i18n',
+  coverageDirectory: '../coverage/ng-intl',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

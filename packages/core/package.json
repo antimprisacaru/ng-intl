@@ -1,6 +1,24 @@
 {
-  "name": "@ng-i18n/core",
+  "author": "Antim Prisacaru",
+  "name": "@ng-intl/core",
+  "description": "Revolutionize Your Angular Translations",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/antimprisacaru/ng-intl/issues"
+  },
+  "homepage": "https://github.com/antimprisacaru/ng-intl#readme",
+  "keywords": [
+    "angular",
+    "translation",
+    "i18n"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antimprisacaru/ng-intl.git"
+  },
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0",

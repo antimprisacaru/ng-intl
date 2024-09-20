@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { createScopedTranslation, InterpolationPipe, LanguageService } from '@ng-i18n/core';
+import { createScopedTranslation, InterpolationPipe, LanguageService } from '@ng-intl/core';
 
 const { TranslationService, provideScopedTranslation } = createScopedTranslation({
   en: () => import('./i18n/en.json'),

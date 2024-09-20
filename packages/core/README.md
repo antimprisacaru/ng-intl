@@ -1,8 +1,8 @@
-# ng-i18n
+# ng-intl
 
 ## Revolutionize Your Angular Translations
 
-Tired of juggling translation keys and hunting down typos? Say hello to ng-i18n – the game-changing Angular translation library that brings the power of intellisense to your i18n workflow.
+Tired of juggling translation keys and hunting down typos? Say hello to ng-intl – the game-changing Angular translation library that brings the power of intellisense to your i18n workflow.
 
 🚀 **First of Its Kind**: Harness the full potential of your IDE with unparalleled intellisense support for translations.
 
@@ -14,7 +14,7 @@ Tired of juggling translation keys and hunting down typos? Say hello to ng-i18n 
 
 ⚡ **Lightning-Fast Setup**: Get up and running in minutes, not hours.
 
-ng-i18n isn't just another translation library – it's your partner in creating truly global Angular applications. Dive in and experience the future of Angular internationalization!
+ng-intl isn't just another translation library – it's your partner in creating truly global Angular applications. Dive in and experience the future of Angular internationalization!
 
 ## Features
 
@@ -29,7 +29,7 @@ ng-i18n isn't just another translation library – it's your partner in creating
 ## Installation
 
 ```bash
-npm install @ng-i18n/core
+npm install @ng-intl/core
 ```
 
 ## Quick Start
@@ -37,7 +37,7 @@ npm install @ng-i18n/core
 1. Provide the translation service and configuration in your app module or in the `providers` array of your `main.ts`:
 
 ```typescript
-import { provideTranslation } from '@ng-i18n/core';
+import { provideTranslation } from '@ng-intl/core';
 
 // ...
 
@@ -54,7 +54,7 @@ providers: [
 2. Add the languages and use the translation service in your component:
 
 ```typescript
-import { createScopedTranslation, LanguageService } from '@ng-i18n/core';
+import { createScopedTranslation, LanguageService } from '@ng-intl/core';
 
 const { TranslationService, provideScopedTranslation } = createScopedTranslation({
   en: () => import('./i18n/en.json'),
@@ -104,7 +104,7 @@ export class AppComponent {
 The `provideTranslation()` function sets up the translation configuration. It can be used without arguments to use the default configuration:
 
 ```typescript
-import { provideTranslation } from '@ng-i18n/core';
+import { provideTranslation } from '@ng-intl/core';
 
 providers: [
   provideTranslation() // Uses default configuration
@@ -114,7 +114,7 @@ providers: [
 Or you can customize the configuration:
 
 ```typescript
-import { provideTranslation } from '@ng-i18n/core';
+import { provideTranslation } from '@ng-intl/core';
 
 providers: [
   provideTranslation({
