@@ -1,5 +1,5 @@
 {
-  "name": "@antim/transgular",
+  "name": "@ng-i18n/core",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.2.0",

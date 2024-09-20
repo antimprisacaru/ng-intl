@@ -1,10 +1,11 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { translationServiceFactory } from '@antim/transgular';
-import { LanguageService } from '@antim/transgular';
-import { InterpolationPipe } from '@antim/transgular';
+import { createScopedTranslation, InterpolationPipe, LanguageService } from '@ng-i18n/core';
 
-const { TranslationService, provideTranslationService } = translationServiceFactory({ en: () => import('./i18n/en.json'), es: () => import('./i18n/es') });
+const { TranslationService, provideScopedTranslation } = createScopedTranslation({
+  en: () => import('./i18n/en.json'),
+  es: () => import('./i18n/es'),
+});
 
 @Component({
   standalone: true,
@@ -12,7 +13,7 @@ const { TranslationService, provideTranslationService } = translationServiceFact
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [provideTranslationService()],
+  providers: [provideScopedTranslation()],
 })
 export class AppComponent {
   protected translations = inject(TranslationService).translations;

@@ -1,8 +1,8 @@
-# Transgular
+# ng-i18n
 
 ## Revolutionize Your Angular Translations
 
-Tired of juggling translation keys and hunting down typos? Say hello to transgular – the game-changing Angular translation library that brings the power of intellisense to your i18n workflow.
+Tired of juggling translation keys and hunting down typos? Say hello to ng-i18n – the game-changing Angular translation library that brings the power of intellisense to your i18n workflow.
 
 🚀 **First of Its Kind**: Harness the full potential of your IDE with unparalleled intellisense support for translations.
 
@@ -14,7 +14,7 @@ Tired of juggling translation keys and hunting down typos? Say hello to transgul
 
 ⚡ **Lightning-Fast Setup**: Get up and running in minutes, not hours.
 
-Transgular isn't just another translation library – it's your partner in creating truly global Angular applications. Dive in and experience the future of Angular internationalization!
+ng-i18n isn't just another translation library – it's your partner in creating truly global Angular applications. Dive in and experience the future of Angular internationalization!
 
 ## Features
 
@@ -29,7 +29,7 @@ Transgular isn't just another translation library – it's your partner in creat
 ## Installation
 
 ```bash
-npm install @antim/transgular
+npm install @ng-i18n/core
 ```
 
 ## Quick Start
@@ -37,12 +37,11 @@ npm install @antim/transgular
 1. Provide the translation service and configuration in your app module or in the `providers` array of your `main.ts`:
 
 ```typescript
-import { provideTranslation } from '@antim/transgular';
+import { provideTranslation } from '@ng-i18n/core';
 
 // ...
 
 providers: [
-  provideTranslationService(),
   provideTranslation() // Uses default configuration
   // Or customize the configuration:
   // provideTranslation({
@@ -55,15 +54,19 @@ providers: [
 2. Add the languages and use the translation service in your component:
 
 ```typescript
-import { Component, inject, OnInit } from '@angular/core';
-import { translationServiceFactory, TranslationService, LanguageService } from '@antim/transgular';
+import { createScopedTranslation, LanguageService } from '@ng-i18n/core';
 
-const { TranslationService, provideTranslationService } = translationServiceFactory({
+const { TranslationService, provideScopedTranslation } = createScopedTranslation({
   en: () => import('./i18n/en.json'),
   es: () => import('./i18n/es'),  // Note: supports both .json and .ts files
   fr: () => import('./i18n/fr.json')
 });
+```
 
+3. Provide the scoped translation via `provideScopedTranslation()` output, and you can inject the service in your component.
+   This will let you use the scoped translation service.
+
+```typescript
 @Component({
   selector: 'app-root',
   template: `
@@ -76,10 +79,11 @@ const { TranslationService, provideTranslationService } = translationServiceFact
       </nav>
     </header>
     <main>
-      <p>{{ translations()?.welcomeMessage | interpolate:{ username: currentUser } }}</p>
+      <p>{{ translations()?.welcomeMessage | interpolate: { username: currentUser } }}</p>
       <p>{{ translations()?.currentLanguage }}: {{ currentLanguage }}</p>
     </main>
-  `
+  `,
+  providers: [provideScopedTranslation()]
 })
 export class AppComponent {
   protected readonly translations = inject(TranslationService).translations;
@@ -92,6 +96,7 @@ export class AppComponent {
     this.languageService.setLanguage(lang);
   }
 }
+
 ```
 
 ## Configuration
@@ -99,16 +104,20 @@ export class AppComponent {
 The `provideTranslation()` function sets up the translation configuration. It can be used without arguments to use the default configuration:
 
 ```typescript
+import { provideTranslation } from '@ng-i18n/core';
+
 providers: [
-  provideTransgular() // Uses default configuration
+  provideTranslation() // Uses default configuration
 ]
 ```
 
 Or you can customize the configuration:
 
 ```typescript
+import { provideTranslation } from '@ng-i18n/core';
+
 providers: [
-  provideTransgular({
+  provideTranslation({
     defaultLanguage: 'en',
     interpolation: 'brackets' // or 'parentheses'
   })

@@ -1,7 +1,7 @@
-import { computed, inject, Provider, signal, Signal } from '@angular/core';
+import { inject, Provider, Signal } from '@angular/core';
 import { AvailableLanguages } from './languages';
 import { createInjectable } from 'ngxtension/create-injectable';
-import { BehaviorSubject, catchError, filter, from, map, of, switchMap, tap } from 'rxjs';
+import { from, switchMap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { LanguageService } from './language.service';
 
@@ -25,7 +25,7 @@ type TranslationSignal<T> = Signal<T> & {
   (): T;
 };
 
-export function translationServiceFactory<T extends TranslationImportMap>(translationRecords: T) {
+export function createScopedTranslation<T extends TranslationImportMap>(translationRecords: T) {
   const TranslationService = createInjectable(
     (languageService = inject(LanguageService)) => {
       type Translation = InferredTranslations<T>[keyof T];
@@ -52,12 +52,12 @@ export function translationServiceFactory<T extends TranslationImportMap>(transl
     { providedIn: 'scoped' }
   );
 
-  function provideTranslationService(): Provider[] {
+  function provideScopedTranslation(): Provider[] {
     return [TranslationService];
   }
 
   return {
     TranslationService,
-    provideTranslationService,
+    provideScopedTranslation,
   };
 }
