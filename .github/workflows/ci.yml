@@ -15,26 +15,44 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
         with:
-          node-version: '20.x'
-      - uses: pnpm/action-setup@v2
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
+      - uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - run: pnpm install
       - run: pnpm run lint:core
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
         with:
-          node-version: '20.x'
-      - uses: pnpm/action-setup@v2
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
+      - uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - run: pnpm install
       - run: pnpm run test:core
 
@@ -48,18 +66,24 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
-      - uses: actions/setup-node@v3
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
           scope: '@ng-intl'
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
+      - uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - run: pnpm install
       - run: pnpm run build:core
       - name: Configure Git
@@ -70,7 +94,7 @@ jobs:
         run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/core
