@@ -1,7 +1,8 @@
 {
   "git": {
-    "commitMessage": "chore(release): ${version}",
-    "tagName": "v${version}"
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}",
+    "push": true
   },
   "npm": {
     "publish": true
@@ -9,7 +10,7 @@
   "github": {
     "release": true,
     "releaseName": "Release ${version}",
-    "tokenRef": "GITHUB_TOKEN"
+    "releaseNotes": "generate-release-notes"
   },
   "plugins": {
     "@release-it/conventional-changelog": {
@@ -20,8 +21,7 @@
   "hooks": {
     "before:init": [
       "pnpm run lint:core",
-      "pnpm run test:core",
-      "pnpm prettier --write ."
+      "pnpm run test:core"
     ],
     "after:bump": "pnpm run build:core",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
