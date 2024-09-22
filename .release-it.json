@@ -5,12 +5,15 @@
     "push": true
   },
   "npm": {
-    "publish": true
+    "publish": true,
+    "publishConfig": {
+      "access": "public"
+    }
   },
   "github": {
     "release": true,
     "releaseName": "Release ${version}",
-    "releaseNotes": "generate-release-notes"
+    "tokenRef": "GITHUB_TOKEN"
   },
   "plugins": {
     "@release-it/conventional-changelog": {

@@ -63,6 +63,11 @@ jobs:
     needs: [ lint, test ]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -71,6 +76,7 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
+          scope: '@ng-intl'
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -93,6 +99,12 @@ jobs:
         run: |
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: Authenticate with npm
+        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+      - name: Commit changes
+        run: |
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: pre-release changes"
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
