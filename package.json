@@ -62,6 +62,7 @@
     "@nx/js": "19.7.4",
     "@nx/web": "19.7.4",
     "@nx/workspace": "19.7.4",
+    "@release-it/conventional-changelog": "^8.0.2",
     "@schematics/angular": "~18.2.0",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
