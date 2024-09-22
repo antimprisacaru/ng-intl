@@ -1,7 +1,7 @@
 {
   "git": {
-    "commitMessage": "chore: release v${version}",
-    "tagName": "v${version}",
+    "commitMessage": "chore(core): release v${version}",
+    "tagName": "core-v${version}",
     "push": true
   },
   "npm": {
@@ -12,7 +12,7 @@
   },
   "github": {
     "release": true,
-    "releaseName": "Release ${version}",
+    "releaseName": "@ng-intl/core v${version}",
     "tokenRef": "GITHUB_TOKEN"
   },
   "plugins": {
@@ -27,6 +27,6 @@
       "pnpm run test:core"
     ],
     "after:bump": "pnpm run build:core",
-    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    "after:release": "echo Successfully released @ng-intl/core v${version} to ${repo.repository}."
   }
 }
