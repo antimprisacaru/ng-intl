@@ -2,7 +2,7 @@
   "author": "Antim Prisacaru",
   "name": "@ng-intl/source",
   "description": "Revolutionize Your Angular Translations",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
