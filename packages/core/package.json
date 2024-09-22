@@ -22,6 +22,7 @@
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0",
+    "@messageformat/core": "^3.3.0",
     "ngxtension": "^4.0.0"
   },
   "sideEffects": false

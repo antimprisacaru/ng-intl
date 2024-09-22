@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { InterpolationPipe } from './interpolation.pipe';
-import { provideTranslation } from './translation.provider';
+import { InterpolationPipe } from '../interpolation.pipe';
+import { provideTranslation } from '../translation.provider';
 
 describe('InterpolationPipe', () => {
   let pipe: InterpolationPipe;
