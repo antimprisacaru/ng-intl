@@ -1,0 +1,29 @@
+{
+  "git": {
+    "commitMessage": "chore(release): ${version}",
+    "tagName": "v${version}"
+  },
+  "npm": {
+    "publish": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release ${version}",
+    "tokenRef": "GITHUB_TOKEN"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md"
+    }
+  },
+  "hooks": {
+    "before:init": [
+      "pnpm run lint:core",
+      "pnpm run test:core",
+      "pnpm prettier --write ."
+    ],
+    "after:bump": "pnpm run build:core",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+  }
+}
