@@ -1,0 +1,97 @@
+name: Bug Report
+description: Report a bug in @ng-intl
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Search
+      description: Please search existing issues before filing a new one
+      options:
+        - label: I have searched existing issues
+          required: true
+  - type: dropdown
+    id: packages
+    attributes:
+      label: Affected @ng-intl package(s)
+      multiple: true
+      options:
+        - Core
+        - Don't know / other
+    validations:
+      required: true
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Is this a regression?
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Behavior
+      description: A clear description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: A clear description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Please provide a link to a minimal reproduction of the bug.
+      placeholder: https://stackblitz.com/...
+    validations:
+      required: true
+  - type: textarea
+    id: ng-intl-config
+    attributes:
+      label: @ng-intl Config
+      description: If applicable, add your @ng-intl configuration.
+      render: yaml
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Please complete the following information.
+      value: |
+        - @ng-intl version:
+        - Angular version:
+        - Node version:
+        - Package manager & version:
+        - OS:
+    validations:
+      required: true
+  - type: textarea
+    id: browser
+    attributes:
+      label: Browser
+      description: Please specify browser name and version if applicable.
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Are you willing to submit a PR?
+      description: If you know how to fix this bug, are you willing to submit a pull request?
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
