@@ -10,6 +10,12 @@ on:
     branches: [main]
     paths:
       - 'packages/core/**'
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Perform release'
+        required: true
+        type: boolean
 
 jobs:
   lint:
@@ -59,7 +65,7 @@ jobs:
   release:
     needs: [lint, test]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event.inputs.release == 'true'
     permissions:
       contents: write
       issues: write
